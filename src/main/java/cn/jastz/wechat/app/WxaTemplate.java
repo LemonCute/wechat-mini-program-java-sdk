@@ -9,6 +9,7 @@ import cn.jastz.wechat.app.util.WxaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhiwen
@@ -21,6 +22,7 @@ public class WxaTemplate {
     @Autowired
     private WxaSession<String, WxaSessionValue> wxaSession;
 
+    public static final long DEFAULT_TIMEOUT = 7 * 24 * 60;
 
     /**
      * 根据code及业务Id 获取 session
@@ -44,7 +46,7 @@ public class WxaTemplate {
             unionId = session.getUnionid();
         }
         wxaSession.put(WxaUtil.getSessionKey(sessionId)
-                , new WxaSessionValue(sessionKey, openid, unionId));
+                , new WxaSessionValue(sessionKey, openid, unionId), 1, TimeUnit.MINUTES);
         return sessionId;
     }
 
@@ -58,7 +60,7 @@ public class WxaTemplate {
     public void setSessionUid(int uid, String sessionId) {
         WxaSessionValue wxaSessionValue = wxaSession.get(WxaUtil.getSessionKey(sessionId));
         wxaSessionValue.setUid(uid);
-        wxaSession.put(WxaUtil.getSessionKey(sessionId), wxaSessionValue);
+        wxaSession.put(WxaUtil.getSessionKey(sessionId), wxaSessionValue, DEFAULT_TIMEOUT, TimeUnit.MINUTES);
     }
 
     /**

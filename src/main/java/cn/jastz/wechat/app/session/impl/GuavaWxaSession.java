@@ -25,6 +25,10 @@ public class GuavaWxaSession implements WxaSession<String, WxaSessionValue> {
     }
 
     @Override
+    public void put(String key, WxaSessionValue value, long timeout, TimeUnit timeUnit) {
+    }
+
+    @Override
     public WxaSessionValue get(String key) {
         return CACHE.getIfPresent(key);
     }

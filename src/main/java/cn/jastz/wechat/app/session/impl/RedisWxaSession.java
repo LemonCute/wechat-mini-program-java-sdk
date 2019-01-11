@@ -27,6 +27,11 @@ public class RedisWxaSession implements WxaSession<String, WxaSessionValue> {
     }
 
     @Override
+    public void put(String key, WxaSessionValue value, long timeout, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, timeout,timeUnit);
+    }
+
+    @Override
     public WxaSessionValue get(String key) {
         return redisTemplate.opsForValue().get(key);
     }

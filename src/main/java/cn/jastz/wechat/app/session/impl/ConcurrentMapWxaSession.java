@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhiwen
@@ -17,6 +18,10 @@ public class ConcurrentMapWxaSession implements WxaSession<String, WxaSessionVal
     public void put(String key, WxaSessionValue v) {
         System.out.println("Thread name " + Thread.currentThread().getName());
         concurrentMap.putIfAbsent(key, v);
+    }
+
+    @Override
+    public void put(String key, WxaSessionValue value, long timeout, TimeUnit timeUnit) {
     }
 
     @Override

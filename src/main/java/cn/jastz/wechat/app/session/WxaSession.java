@@ -1,6 +1,7 @@
 package cn.jastz.wechat.app.session;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhiwen
@@ -8,6 +9,8 @@ import java.util.Map;
 public interface WxaSession<K, V> {
 
     void put(K key, V value);
+
+    void put(K key, V value, long timeout, TimeUnit timeUnit);
 
     V get(K key);
 
